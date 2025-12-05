@@ -24,10 +24,9 @@ class FilterTaskRequest extends FormRequest
         return [
             'page'            => ['nullable', 'integer'],
             'per_page'        => ['nullable', 'integer'],
-            'title'           => ['nullable', 'string', 'max:255'],
-            'description'     => ['nullable', 'string'],
+            'search'          => ['nullable', 'string', 'max:255'],
             'assignee_ids'    => ['nullable', 'array'],
-            'assignee_ids.*'  => ['nullable', 'integer'],
+            'assignee_ids.*'  => ['required', 'integer'],
             'from_date'       => ['nullable', 'date'],
             'to_date'         => ['nullable', 'date', 'after_or_equal:from_date'],
             'status'          => ['nullable', 'in:completed,pending,canceled']

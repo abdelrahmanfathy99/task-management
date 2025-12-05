@@ -22,8 +22,8 @@ class syncTaskDependenciesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'dependencies_ids'   => ['nullable', 'array'],
-            'dependencies_ids.*' => ['integer', 'exists:tasks,id']
+            'dependencies_ids'   => ['required', 'array', 'min:1'],
+            'dependencies_ids.*' => ['required', 'integer', 'exists:tasks,id']
         ];
     }
 }
