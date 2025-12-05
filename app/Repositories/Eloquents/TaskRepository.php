@@ -20,7 +20,7 @@ class TaskRepository implements TaskInterface
 
     public function show(Task $task): Task
     {
-        return $task->with(['assignee', 'dependencies', 'dependents'])->fresh();
+        return $task->load(['assignee', 'dependencies', 'dependents']);
     }
 
     public function store(array $data): Task

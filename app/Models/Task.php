@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Traits\TaskQueryTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Task extends Model
 {
+    use TaskQueryTrait;
+
     protected $guarded = [];
 
     public function assignee(): BelongsTo
@@ -32,8 +35,10 @@ class Task extends Model
     {
         $user = Auth::user();
 
-        if ($user->hasAbility('view_tasks') && !empty($data['assignee_ids'])) {
-            $query->whereIn('assignee_id', $data['assignee_ids']);
+        if ($user->hasAbility('view_tasks')) {
+            $query->when(!empty($data['assignee_ids']), function ($q) use ($data) {
+                $q->whereIn('assignee_id', $data['assignee_ids']);
+            });
         } else if ($user->hasAbility('view_own_tasks')) {
             $query->where('assignee_id', $user->id);
         } else {
@@ -65,11 +70,11 @@ class Task extends Model
         return Task::updateOrCreate(
             ['id' => $task?->id],
             [
-                'title'       => $data['title'],
-                'description' => $data['description'] ?? null,
-                'assignee_id' => $data['assignee_id'] ?? null,
-                'status'      => $data['status'] ?? 'pending',
-                'due_date'    => $data['due_date'] ?? null,
+                'title'       => $data['title'] ?? $task?->title ?? null,
+                'description' => $data['description'] ?? $task?->description ?? null,
+                'assignee_id' => $data['assignee_id'] ?? $task?->assignee_id ?? null,
+                'status'      => $data['status'] ?? $task->status ?? 'pending',
+                'due_date'    => $data['due_date'] ?? $task?->due_date ?? null,
             ]
         );
     }
@@ -96,8 +101,9 @@ class Task extends Model
 
     public function checkAllDependenciesCompleted(): void
     {
-        if ($this->dependencies()->where('status', '!=', 'completed')->exists()) {
-            throw new ValidationException(__('messages.cannot_complete_task_some_dependecies_are_not_completed_yet'));
+        // get all dependencies ids recursively
+        if (self::findMany($this->getDependencyIds())->where('status', '!=', 'completed')->isNotEmpty()) {
+            throw ValidationException::withMessages(['status' => __('messages.cannot_complete_task_some_dependecies_are_not_completed_yet')]);
         }
     }
 }

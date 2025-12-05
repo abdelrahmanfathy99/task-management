@@ -5,37 +5,54 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateTaskRequest;
 use App\Http\Requests\FilterTaskRequest;
+use App\Http\Requests\syncTaskDependenciesRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Http\Resources\TaskResource;
+use App\Http\Traits\PaginationTrait;
 use App\Models\Task;
 use App\Repositories\Contracts\TaskInterface;
-use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
+    use PaginationTrait;
+
     public function __construct(protected TaskInterface $taskrepository) {}
 
     public function index(FilterTaskRequest $request)
     {
-        return $this->taskrepository->index($request->validated());
+        $tasks = $this->taskrepository->index($request->validated());
+
+        return response()->json([
+            'tasks' => TaskResource::collection($tasks),
+            'meta'  => $this->getPaginationMeta($tasks)
+        ], 200);
     }
 
     public function show(Task $task)
     {
-        return $this->taskrepository->show($task);
+        $task = $this->taskrepository->show($task);
+
+        return response()->json(['task' => new TaskResource($task)], 200);
     }
 
     public function store(CreateTaskRequest $request)
     {
-        return $this->taskrepository->store($request->validated());
+        $task = $this->taskrepository->store($request->validated());
+
+        return response()->json(['task' => new TaskResource($task)], 201);
     }
 
     public function update(UpdateTaskRequest $request, Task $task)
     {
-        return $this->taskrepository->update($request->validated(), $task);
+        $task = $this->taskrepository->update($request->validated(), $task);
+
+        return response()->json(['task' => new TaskResource($task)], 200);
     }
 
-    public function syncTaskDependencies(Request $request, Task $task)
+    public function syncTaskDependencies(syncTaskDependenciesRequest $request, Task $task)
     {
-        return $this->taskrepository->syncTaskDependencies($request->validated(), $task);
+        $task = $this->taskrepository->syncTaskDependencies($request->validated(), $task);
+
+        return response()->json(['task' => new TaskResource($task)], 200);
     }
 }

@@ -4,7 +4,6 @@ namespace App\Repositories\Contracts;
 
 use App\Models\Task;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Http\Request;
 
 interface TaskInterface
 {
