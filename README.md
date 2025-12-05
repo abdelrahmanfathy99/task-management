@@ -71,4 +71,4 @@ chmod -R 775 storage bootstrap/cache
 
 ### 9. Postman Collection
 
-You can import the Postman collection for this project using the following link: [Postman collection](https://github.com/abdelrahmanfathy99/task-management/tree/main/app/Http/postman/task-management.json)
+You can import the Postman collection for this project using the following link: [Postman collection](https://github.com/abdelrahmanfathy99/task-management/tree/main/app/Http/postman/collections/task-management.json)
