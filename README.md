@@ -72,3 +72,10 @@ chmod -R 775 storage bootstrap/cache
 ### 9. Postman Collection
 
 You can import the Postman collection for this project using the following link: [Postman collection](https://github.com/abdelrahmanfathy99/task-management/tree/main/app/Http/postman/collections/task-management.json)
+
+### 10. ERD for the DB
+
+The database ERD diagram has been generated using [dbdiagram.io](https://dbdiagram.io) based on the project schema.
+
+You can see The ERD of the database using the following link: [ERD Link](https://github.com/abdelrahmanfathy99/task-management/tree/main/public/task-management-erd.png)
+
