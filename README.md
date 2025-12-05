@@ -60,7 +60,7 @@ php artisan db:seed
 php artisan serve
 ```
 
-### 9. Additional Notes
+### 8. Additional Notes
 
 * Make sure PHP (>= 8.3), MySQL (>= 8.0),  and Composer are installed.
 * Check your storage and bootstrap cache permissions:
@@ -68,3 +68,7 @@ php artisan serve
 ```bash
 chmod -R 775 storage bootstrap/cache
 ```
+
+### 9. Postman Collection
+
+You can import the Postman collection for this project using the following link: [Postman collection](https://github.com/abdelrahmanfathy99/task-management/tree/main/app/Http/postman/task-management.json)

@@ -1,0 +1,370 @@
+{
+  "info": {
+    "_postman_id": "69822af0-91b5-48ec-bf44-d1eff0f497e6",
+    "name": "Task Management Api",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "login",
+          "id": "53151460-fb18-49b8-8ff3-2cbfffd78025",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept-Language",
+                "value": "en",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"manager@example.com\",\n    \"password\": \"P@ssw0rd\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{task_management}}/login",
+              "host": [
+                "{{task_management}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          }
+        },
+        {
+          "name": "logout",
+          "id": "ca218e48-2a38-4d20-8478-9152d97b7fc1",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{task_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept-Language",
+                "value": "en",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{task_management}}/logout",
+              "host": [
+                "{{task_management}}"
+              ],
+              "path": [
+                "logout"
+              ]
+            }
+          }
+        }
+      ],
+      "id": "06a2bab7-e39a-49eb-b423-82341fedda5b"
+    },
+    {
+      "name": "Tasks",
+      "item": [
+        {
+          "name": "create task",
+          "id": "3d26bcf8-9235-43a7-bbdf-85416a9e8f9c",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{task_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "en",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"New Task\",\n    \"description\": \"My New Task Description\",\n    \"assignee_id\": 2,\n    \"due_date\": \"2026-01-02\",\n    \"dependencies_ids\": [1]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{task_management}}/task",
+              "host": [
+                "{{task_management}}"
+              ],
+              "path": [
+                "task"
+              ]
+            }
+          }
+        },
+        {
+          "name": "update task",
+          "id": "cef9304b-9b3a-4c88-9c74-22539c36e8c0",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{task_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "en",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"Task 1\",\n    \"description\": \"My Task Description\",\n    \"status\": \"completed\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{task_management}}/task/3",
+              "host": [
+                "{{task_management}}"
+              ],
+              "path": [
+                "task",
+                "3"
+              ]
+            }
+          }
+        },
+        {
+          "name": "show task",
+          "id": "64a7f196-c8ca-435a-8963-767996031538",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{task_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "en",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{task_management}}/task/3",
+              "host": [
+                "{{task_management}}"
+              ],
+              "path": [
+                "task",
+                "3"
+              ]
+            }
+          }
+        },
+        {
+          "name": "get tasks",
+          "id": "6bc4c886-a5b7-4f20-b8bb-d2e5f88b5e3d",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{task_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{task_management}}/tasks?page=1&per_page=10&from_date=2025-01-01&status=pending",
+              "host": [
+                "{{task_management}}"
+              ],
+              "path": [
+                "tasks"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "per_page",
+                  "value": "10"
+                },
+                {
+                  "key": "search",
+                  "value": "Task 1",
+                  "disabled": true
+                },
+                {
+                  "key": "assignee_ids[0]",
+                  "value": null,
+                  "disabled": true
+                },
+                {
+                  "key": "from_date",
+                  "value": "2025-01-01"
+                },
+                {
+                  "key": "to_date",
+                  "value": null,
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "pending"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "sync dependencies",
+          "id": "ccfe21cb-6a69-4914-b702-6ada905db164",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{task_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "en",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{task_management_url}}/tasks/3/sync-dependenices",
+              "host": [
+                "{{task_management_url}}"
+              ],
+              "path": [
+                "tasks",
+                "3",
+                "sync-dependenices"
+              ]
+            }
+          }
+        }
+      ],
+      "id": "45913d67-82b1-4a15-8776-fbf0faed3f42"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{task_token}}",
+        "type": "string"
+      }
+    ]
+  }
+}
