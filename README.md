@@ -83,7 +83,7 @@ You can see The ERD of the database using the following link: [ERD Link](https:/
 
 You can run the Task Management System using Docker and Docker Compose. This allows you to avoid installing PHP, MySQL, and other dependencies on your local machine.
 
-### 1. Build and Start Containers
+### Build and Start Containers
 
 Make sure you have [Docker](https://docs.docker.com/get-docker/) installed. Then run:
 
