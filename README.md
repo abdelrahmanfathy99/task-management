@@ -79,3 +79,13 @@ The database ERD diagram has been generated using [dbdiagram.io](https://dbdiagr
 
 You can see The ERD of the database using the following link: [ERD Link](https://github.com/abdelrahmanfathy99/task-management/tree/main/public/task-management-erd.png)
 
+## Using Docker
+
+You can run the Task Management System using Docker and Docker Compose. This allows you to avoid installing PHP, MySQL, and other dependencies on your local machine.
+
+### 1. Build and Start Containers
+
+Make sure you have [Docker](https://docs.docker.com/get-docker/) installed. Then run:
+
+```bash
+docker compose up -d --build
