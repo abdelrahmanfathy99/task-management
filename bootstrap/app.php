@@ -3,6 +3,7 @@
 use App\Http\Middleware\CheckAbility;
 use App\Http\Middleware\HandleLocale;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -58,6 +59,11 @@ return Application::configure(basePath: dirname(__DIR__))
                 ], $e->getStatusCode());
             }
 
+            if ($e instanceof AuthenticationException) {
+                return response()->json([
+                    'message' => $e->getMessage(),
+                ], 401);
+            }
 
             return response()->json([
                 'message' => $e->getMessage(),
